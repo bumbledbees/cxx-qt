@@ -31,4 +31,9 @@ mod quickcontrols;
 #[cfg(feature = "qt_quickcontrols")]
 pub use crate::quickcontrols::*;
 
+#[cfg(feature = "qt_sql")]
+mod sql;
+#[cfg(feature = "qt_sql")]
+pub use crate::sql::*;
+
 mod util;

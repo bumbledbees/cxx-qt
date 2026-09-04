@@ -17,6 +17,10 @@ fn qt_quickcontrols_enabled() -> bool {
     std::env::var("CARGO_FEATURE_QT_QUICKCONTROLS").is_ok()
 }
 
+fn qt_sql_enabled() -> bool {
+    std::env::var("CARGO_FEATURE_QT_SQL").is_ok()
+}
+
 fn header_dir() -> PathBuf {
     PathBuf::from(std::env::var("OUT_DIR").unwrap())
         .join("include")
@@ -42,6 +46,10 @@ fn write_definitions_header() {
 
     if qt_quickcontrols_enabled() {
         definitions.push_str("#define CXX_QT_QUICKCONTROLS_FEATURE\n");
+    }
+
+    if qt_sql_enabled() {
+        definitions.push_str("#define CXX_QT_SQL_FEATURE\n");
     }
 
     std::fs::create_dir_all(header_dir()).expect("Failed to create cxx-qt-lib include directory");
@@ -269,6 +277,10 @@ fn main() {
         rust_bridges.extend(["quickcontrols/qquickstyle"]);
     }
 
+    if qt_sql_enabled() {
+        rust_bridges.extend(["sql/qsql"]);
+    }
+
     if !emscripten_targeted {
         rust_bridges.extend([
             "core/qdatetime",
@@ -376,6 +388,10 @@ fn main() {
 
     if qt_quickcontrols_enabled() {
         builder = builder.qt_module("QuickControls2");
+    }
+
+    if qt_sql_enabled() {
+        builder = builder.qt_module("Sql");
     }
 
     let rust_bridges = rust_bridges

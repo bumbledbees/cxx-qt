@@ -64,10 +64,11 @@ full = [
 ]
 default = []
 
-qt_full = ["qt_gui", "qt_qml", "qt_quickcontrols"]
+qt_full = ["qt_gui", "qt_qml", "qt_quickcontrols", "qt_sql"]
 qt_gui = []
 qt_qml = []
 qt_quickcontrols = []
+qt_sql = []
 
 bytes = ["dep:bytes"]
 chrono = ["dep:chrono"]
